@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - CCODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #10b981;
+            --secondary-color: #059669;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --secondary-color: #34d399;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --card-bg: #1f2937;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 26px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand h1 { font-size: 2rem; margin: 0; }
+        .tagline { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .content-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box strong {
+            color: var(--primary-color);
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        [data-theme="dark"] .warning-box {
+            background: #78350f;
+            border-left: 4px solid #fbbf24;
+        }
+
+        .warning-box strong {
+            color: #f59e0b;
+        }
+
+        [data-theme="dark"] .warning-box strong {
+            color: #fbbf24;
+        }
+
+        .contact-info {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--shadow);
+            margin-top: 3rem;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 { margin-bottom: 1rem; color: var(--primary-color); font-size: 1.2rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+        }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--shadow); color: var(--text-secondary); }
+        .heart { color: #ef4444; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: flex; }
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--header-bg);
+                width: 100%;
+                height: 100vh;
+                transition: 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            nav a { font-size: 1.3rem; color: white; }
+            .brand h1 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-links { flex-direction: column; text-align: left; }
+            .page-header h1 { font-size: 2rem; }
+            .content-section { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"><i class="fas fa-laptop-code"></i></div>
+                <div class="brand">
+                    <h1>CCODE</h1>
+                    <p class="tagline">Empowering Programmers, One Line at a Time</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#learn">Learn C</a></li>
+                        <li><a href="#explore">Explore C Programming</a></li>
+                        <li><a href="#about-c">About C</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1><i class="fas fa-file-contract"></i> Terms & Conditions</h1>
+            <p class="last-updated">Last Updated: December 26, 2025</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-handshake"></i> Agreement to Terms</h2>
+            <p>Welcome to CCODE. These Terms and Conditions ("Terms") govern your access to and use of the CCODE website, services, and educational content (collectively, the "Services"). By accessing or using our Services, you agree to be bound by these Terms.</p>
+            
+            <div class="highlight-box">
+                <strong>IMPORTANT:</strong> Please read these Terms carefully before using our Services. If you do not agree with these Terms, you must not access or use our Services.
+            </div>
+
+            <p>These Terms constitute a legally binding agreement between you ("User," "you," or "your") and CCODE ("we," "us," or "our"). We reserve the right to modify these Terms at any time, and your continued use of the Services constitutes acceptance of any modifications.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-user-check"></i> Eligibility and Account Registration</h2>
+            
+            <h3>Age Requirements</h3>
+            <p>You must be at least 13 years of age to use our Services. If you are under 18 years of age, you must have permission from a parent or legal guardian to use our Services. By using our Services, you represent and warrant that you meet these age requirements.</p>
+
+            <h3>Account Creation</h3>
+            <p>To access certain features of our Services, you may be required to create an account. When creating an account, you agree to:</p>
+            <ul>
+                <li>Provide accurate, current, and complete information</li>
+                <li>Maintain and promptly update your account information</li>
+                <li>Maintain the security of your password and account</li>
+                <li>Accept all responsibility for activities that occur under your account</li>
+                <li>Immediately notify us of any unauthorized use of your account</li>
+            </ul>
+
+            <p>We reserve the right to suspend or terminate accounts that contain false information or violate these Terms.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-laptop-code"></i> Use of Services</h2>
+            
+            <h3>License to Use</h3>
+            <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to access and use our Services for personal, non-commercial educational purposes.</p>
+
+            <h3>Acceptable Use</h3>
+            <p>You agree to use our Services only for lawful purposes and in accordance with these Terms. You agree NOT to:</p>
+            <ul>
+                <li>Use the Services in any way that violates any applicable law or regulation</li>
+                <li>Use the Services to transmit any harmful, offensive, or illegal content</li>
+                <li>Attempt to gain unauthorized access to any part of the Services</li>
+                <li>Interfere with or disrupt the Services or servers connected to the Services</li>
+                <li>Use any automated systems (bots, scrapers) to access the Services</li>
+                <li>Reproduce, duplicate, copy, or resell any part of the Services without permission</li>
+                <li>Impersonate any person or entity or misrepresent your affiliation</li>
+                <li>Upload viruses, malware, or any other malicious code</li>
+                <li>Collect or harvest personal information from other users</li>
+                <li>Use the Services for commercial purposes without our written consent</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-copyright"></i> Intellectual Property Rights</h2>
+            
+            <h3>Our Content</h3>
+            <p>All content on CCODE, including but not limited to text, graphics, logos, images, code examples, tutorials, videos, and software, is the property of CCODE or its content suppliers and is protected by international copyright, trademark, and other intellectual property laws.</p>
+
+            <div class="highlight-box">
+                <p><strong>Copyright Notice:</strong> © 2025 CCODE. All rights reserved. Unauthorized reproduction, distribution, or commercial use of any content is strictly prohibited.</p>
+            </div>
+
+            <h3>User-Generated Content</h3>
+            <p>If you post, upload, or submit any content to our Services (comments, code examples, questions, etc.), you grant CCODE a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, publish, and distribute such content in connection with our Services.</p>
+
+            <p>You represent and warrant that:</p>
+            <ul>
+                <li>You own or have the necessary rights to the content you submit</li>
+                <li>Your content does not infringe on any third-party rights</li>
+                <li>Your content complies with these Terms and applicable laws</li>
+            </ul>
+
+            <h3>Educational Fair Use</h3>
+            <p>Code examples and educational materials provided on CCODE are intended for learning purposes. You may use these materials for personal learning and educational projects, but you may not:</p>
+            <ul>
+                <li>Republish our tutorials or content on other platforms without attribution</li>
+                <li>Create competing educational products using our content</li>
+                <li>Remove copyright notices or attributions from code examples</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Disclaimer of Warranties</h2>
+            
+            <div class="warning-box">
+                <strong>IMPORTANT DISCLAIMER:</strong> The Services are provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied.
+            </div>
+
+            <p>To the fullest extent permitted by law, CCODE disclaims all warranties, including but not limited to:</p>
+            <ul>
+                <li>Warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+                <li>Warranties regarding the accuracy, reliability, or completeness of content</li>
+                <li>Warranties that the Services will be uninterrupted, secure, or error-free</li>
+                <li>Warranties that defects will be corrected</li>
+            </ul>
+
+            <p>We do not warrant that:</p>
+            <ul>
+                <li>The Services will meet your requirements or expectations</li>
+                <li>Code examples will be error-free or suitable for production use</li>
+                <li>Any information obtained through the Services will be accurate or reliable</li>
+                <li>The Services will be compatible with all devices or software</li>
+            </ul>
+
+            <h3>Educational Content Disclaimer</h3>
+            <p>While we strive to provide accurate and up-to-date educational content, programming languages, technologies, and best practices evolve. We do not guarantee that all content reflects the most current standards or practices. Users should verify information independently and use professional judgment when applying knowledge gained from our Services.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-ban"></i> Limitation of Liability</h2>
+            
+            <div class="warning-box">
+                <strong>LIMITATION OF LIABILITY:</strong> To the maximum extent permitted by law, CCODE shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Services.
+            </div>
+
+            <p>This includes, without limitation, damages for:</p>
+            <ul>
+                <li>Loss of profits, data, or business opportunities</li>
+                <li>Computer system failures or malfunctions</li>
+                <li>Errors in code examples used in production environments</li>
+                <li>Security breaches or unauthorized access to your account</li>
+                <li>Interruption of service or loss of access to content</li>
+                <li>Any other tangible or intangible losses</li>
+            </ul>
+
+            <p>Our total liability to you for all claims arising from your use of the Services shall not exceed the amount you paid to CCODE in the twelve (12) months preceding the claim, or $100 USD, whichever is greater.</p>
+
+            <p>Some jurisdictions do not allow the exclusion or limitation of certain warranties or liabilities. In such jurisdictions, our liability will be limited to the maximum extent permitted by law.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-shield-alt"></i> Indemnification</h2>
+            
+            <p>You agree to indemnify, defend, and hold harmless CCODE, its officers, directors, employees, agents, and affiliates from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys' fees, arising out of or in any way connected with:</p>
+            <ul>
+                <li>Your access to or use of the Services</li>
+                <li>Your violation of these Terms</li>
+                <li>Your violation of any rights of another party</li>
+                <li>Your user-generated content</li>
+                <li>Any disputes between you and other users</li>
+                <li>Your negligence or willful misconduct</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-link"></i> Third-Party Links and Services</h2>
+            
+            <p>Our Services may contain links to third-party websites, applications, or services that are not owned or controlled by CCODE. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.</p>
+
+            <p>You acknowledge and agree that:</p>
+            <ul>
+                <li>CCODE is not responsible for any damages arising from your use of third-party services</li>
+                <li>You should review the terms and privacy policies of any third-party services you access</li>
+                <li>Links to third-party services do not imply endorsement by CCODE</li>
+            </ul>
+
+            <h3>Third-Party Software and Tools</h3>
+            <p>Our tutorials may reference or recommend third-party development tools, compilers, libraries, or frameworks. Use of such tools is subject to their respective licenses and terms. CCODE is not responsible for the functionality, security, or licensing of third-party software.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-user-times"></i> Termination</h2>
+            
+            <h3>Termination by You</h3>
+            <p>You may stop using our Services at any time. If you have an account, you may delete it through your account settings or by contacting us.</p>
+
+            <h3>Termination by Us</h3>
+            <p>We reserve the right to suspend or terminate your access to the Services at any time, without notice, for any reason, including but not limited to:</p>
+            <ul>
+                <li>Violation of these Terms</li>
+                <li>Fraudulent or illegal activities</li>
+                <li>Threats to the security or integrity of the Services</li>
+                <li>Extended periods of inactivity</li>
+                <li>Requests by law enforcement or government agencies</li>
+            </ul>
+
+            <h3>Effect of Termination</h3>
+            <p>Upon termination:</p>
+            <ul>
+                <li>Your right to access and use the Services will immediately cease</li>
+                <li>We may delete your account and associated data</li>
+                <li>Provisions of these Terms that by their nature should survive will remain in effect</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-comments"></i> User Conduct and Community Guidelines</h2>
+            
+            <p>CCODE is committed to maintaining a respectful, educational community. When interacting with other users through comments, forums, or other features, you must:</p>
+            <ul>
+                <li>Be respectful and courteous to other users</li>
+                <li>Avoid harassment, hate speech, or discriminatory language</li>
+                <li>Not post spam, advertisements, or promotional content</li>
+                <li>Not share solutions to homework or exam questions when explicitly asked</li>
+                <li>Provide constructive feedback and helpful suggestions</li>
+                <li>Report inappropriate content or behavior to moderators</li>
+            </ul>
+
+            <p>We reserve the right to remove any content that violates these guidelines and to take appropriate action against users who repeatedly violate community standards.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-balance-scale"></i> Governing Law and Dispute Resolution</h2>
+            
+            <h3>Governing Law</h3>
+            <p>These Terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions.</p>
+
+            <h3>Dispute Resolution</h3>
+            <p>In the event of any dispute, claim, or controversy arising from these Terms or your use of the Services, you agree to first attempt to resolve the dispute informally by contacting us. If we cannot resolve the dispute within 30 days, either party may pursue formal dispute resolution.</p>
+
+            <h3>Arbitration</h3>
+            <p>Any disputes that cannot be resolved informally shall be resolved through binding arbitration, except that either party may seek injunctive relief in court for infringement of intellectual property rights.</p>
+
+            <h3>Class Action Waiver</h3>
+            <p>You agree that any proceedings to resolve disputes will be conducted on an individual basis and not in a class, consolidated, or representative action.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-file-alt"></i> General Provisions</h2>
+            
+            <h3>Entire Agreement</h3>
+            <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and CCODE regarding the use of our Services.</p>
+
+            <h3>Modifications</h3>
+            <p>We reserve the right to modify these Terms at any time. We will notify users of material changes by posting an updated version on our website with a new "Last Updated" date. Your continued use of the Services after changes become effective constitutes acceptance of the modified Terms.</p>
+
+            <h3>Severability</h3>
+            <p>If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.</p>
+
+            <h3>Waiver</h3>
+            <p>No waiver of any provision of these Terms shall be deemed a further or continuing waiver of such provision or any other provision.</p>
+
+            <h3>Assignment</h3>
+            <p>You may not assign or transfer these Terms or your rights under these Terms without our prior written consent. We may assign these Terms without restriction.</p>
+
+            <h3>Force Majeure</h3>
+            <p>CCODE shall not be liable for any failure or delay in performance due to circumstances beyond our reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, labor disputes, or internet service failures.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-certificate"></i> Acknowledgment</h2>
+            
+            <p>By using CCODE's Services, you acknowledge that:</p>
+            <ol>
+                <li>You have read and understood these Terms & Conditions</li>
+                <li>You agree to be bound by these Terms</li>
+                <li>You are legally capable of entering into this binding agreement</li>
+                <li>You will comply with all applicable laws and regulations</li>
+                <li>You understand that code examples are for educational purposes and should be properly tested before production use</li>
+            </ol>
+
+            <div class="highlight-box">
+                <p><strong>Educational Purpose Statement:</strong> CCODE is an educational platform designed to teach programming skills. While we strive for accuracy, users are responsible for verifying information and testing code in appropriate environments before deployment in production systems.</p>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <h3><i class="fas fa-envelope"></i> Contact Information</h3>
+            <p>If you have any questions, concerns, or feedback regarding these Terms & Conditions, please contact us:</p>
+            <p><strong>Email:</strong> <a href="mailto:legal@ccode.com">legal@ccode.com</a></p>
+            <p><strong>Website:</strong> <a href="https://ccode.com">www.ccode.com</a></p>
+            <p>We will respond to your inquiry within a reasonable timeframe.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#learn"><i class="fas fa-graduation-cap"></i> Learn C</a></li>
+                        <li><a href="#explore"><i class="fas fa-laptop-code"></i> Explore Programming</a></li>
+                        <li><a href="#about-c"><i class="fas fa-info-circle"></i> About C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <span class="heart">❤</span> for C Programming Lovers</p>
+                <p>&copy; <span id="year"></span> CCODE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');

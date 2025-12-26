@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCODE - Master C Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #10b981;
+            --secondary-color: #059669;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --secondary-color: #34d399;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --card-bg: #1f2937;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 26px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand h1 { font-size: 2rem; margin: 0; }
+        .tagline { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        /* Fixed Close Icon Logic */
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .section:nth-child(2) { flex-direction: row-reverse; }
+
+        .section-logo {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .section-content h2 { color: var(--primary-color); margin-bottom: 1rem; font-size: 2rem; }
+        .section-content p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        /* --- ORIGINAL FOOTER STYLES --- */
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--shadow);
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 { margin-bottom: 1rem; color: var(--primary-color); font-size: 1.2rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+        }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--shadow); color: var(--text-secondary); }
+        .heart { color: #ef4444; }
+
+        /* --- RESPONSIVE LOGIC --- */
+        @media (max-width: 992px) {
+            .hamburger { display: flex; }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--header-bg); /* Green Background */
+                width: 100%;
+                height: 100vh;
+                transition: 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+
+            nav.active { right: 0; }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            nav a { font-size: 1.3rem; color: white; }
+
+            .section { flex-direction: column !important; padding: 2rem; text-align: center; }
+            .section-logo { width: 100px; height: 100px; font-size: 3rem; }
+            .brand h1 { font-size: 1.5rem; }
+            .tagline { font-size: 0.75rem; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-links { flex-direction: column; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"><i class="fas fa-laptop-code"></i></div>
+                <div class="brand">
+                    <h1>CCODE</h1>
+                    <p class="tagline">Empowering Programmers, One Line at a Time</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="LearnC/topics.html">Learn C</a></li>
+                        <li><a href="C Programming/all-program.html">Explore C Programming</a></li>
+                        <li><a href="About-c/about.html">About C</a></li>
+                        <li><a href="About-us.html">About Us</a></li>
+                        <li><a href="Contact-us.html">Contact Us</a></li>
+                        
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="Terms-conditions.html">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" id="learn">
+            <div class="section-logo"><i class="fab fa-cuttlefish"></i></div>
+            <div class="section-content">
+                <h2>Learn C Programming</h2>
+                <p>Start your programming journey with C, the foundation of modern computing. Master the fundamentals, understand memory management, and build a strong programming foundation that will serve you throughout your career. Our comprehensive tutorials cover everything from basic syntax to advanced concepts.</p>
+                <a href="LearnC/topics.html" class="btn">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <section class="section" id="explore">
+            <div class="section-logo"><i class="fab fa-cuttlefish"></i></div>
+            <div class="section-content">
+                <h2>Explore C Programming</h2>
+                <p>Dive deep into C programming with our extensive collection of exercises, source code examples, and detailed explanations. Practice with real-world projects, explore algorithms, and understand how professional C code is written. From simple programs to complex implementations, we've got you covered.</p>
+                <a href="/C Programming/all-program.html" class="btn">Explore Now <i class="fas fa-code"></i></a>
+            </div>
+        </section>
+
+        <section class="section" id="about-c">
+            <div class="section-logo"><i class="fab fa-cuttlefish"></i></div>
+            <div class="section-content">
+                <h2>About C Language</h2>
+                <p>C is a powerful general-purpose programming language developed in 1972 by Dennis Ritchie at Bell Labs. It's the backbone of operating systems like Linux and Unix, and plays a crucial role in Android development through the NDK (Native Development Kit). C's efficiency, portability, and direct hardware access make it indispensable in system programming, embedded systems, and performance-critical applications.</p>
+                <a href="/About-c/about.html" class="btn">Explore More <i class="fas fa-book-open"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#learn"><i class="fas fa-graduation-cap"></i> Learn C</a></li>
+                        <li><a href="#explore"><i class="fas fa-laptop-code"></i> Explore Programming</a></li>
+                        <li><a href="#about-c"><i class="fas fa-info-circle"></i> About C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <span class="heart">❤</span> for C Programming Lovers</p>
+                <p>&copy; <span id="year"></span> CCODE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Theme toggle logic
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            html.setAttribute('data-theme', nextTheme);
+            themeToggle.innerHTML = nextTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', nextTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

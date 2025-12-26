@@ -1,0 +1,800 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to C - CCODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #10b981;
+            --secondary-color: #059669;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --code-bg: #1e1e1e;
+            --code-toolbar: #2d2d30;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --secondary-color: #34d399;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --card-bg: #1f2937;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 26px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand h1 { font-size: 2rem; margin: 0; }
+        .tagline { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .topic-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .topic-icon-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .topic-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .topic-usecase {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+            margin: 0 auto 3rem;
+            max-width: 800px;
+        }
+
+        .topic-usecase h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-usecase p {
+            color: var(--text-secondary);
+        }
+
+        .content-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            width: 100%;
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            word-wrap: break-word;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            word-wrap: break-word;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .code-toolbar {
+            background: var(--code-toolbar);
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3e3e42;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .code-toolbar-left {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .window-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-filename {
+            color: #cccccc;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .copy-btn.copied {
+            background: #27c93f;
+        }
+
+        .code-content {
+            background: var(--code-bg);
+            padding: 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d4d4d4;
+            max-width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .code-content pre {
+            margin: 0;
+            padding: 1.5rem;
+            background: var(--code-bg) !important;
+            min-width: max-content;
+        }
+
+        .code-content code {
+            display: block;
+            white-space: pre;
+            overflow-wrap: normal;
+            font-family: 'Courier New', Consolas, monospace !important;
+            background: transparent !important;
+        }
+
+        /* Prism.js Theme Overrides */
+        pre[class*="language-"] {
+            background: var(--code-bg) !important;
+            margin: 0;
+            padding: 1.5rem;
+            border-radius: 0;
+        }
+
+        code[class*="language-"] {
+            color: #d4d4d4;
+            background: transparent;
+            font-family: 'Courier New', Consolas, monospace;
+            text-shadow: none;
+        }
+
+        .explanation-box {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            margin: 1.5rem 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .explanation-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            word-wrap: break-word;
+        }
+
+        .explanation-box ul {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .explanation-box li {
+            margin-bottom: 0.5rem;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .explanation-box p {
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .nav-btn.disabled {
+            background: var(--text-secondary);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--shadow);
+            margin-top: 3rem;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 { margin-bottom: 1rem; color: var(--primary-color); font-size: 1.2rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+        }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--shadow); color: var(--text-secondary); }
+        .heart { color: #ef4444; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: flex; }
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--header-bg);
+                width: 100%;
+                height: 100vh;
+                transition: 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            nav a { font-size: 1.3rem; color: white; }
+            .brand h1 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-links { flex-direction: column; text-align: left; }
+            .topic-header h1 { font-size: 2rem; }
+            .navigation-buttons { flex-direction: column; }
+            .code-toolbar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+            .code-filename { margin-left: 0; }
+            
+            .code-container {
+                border-radius: 8px;
+                margin-left: -3%;
+                margin-right: -3%;
+                width: calc(100% + 6%);
+                max-width: calc(100% + 6%);
+            }
+            
+            .code-content {
+                font-size: 0.85rem;
+            }
+            
+            .code-content pre {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            main {
+                padding: 2rem 2%;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .code-container {
+                margin-left: -2%;
+                margin-right: -2%;
+                width: calc(100% + 4%);
+                max-width: calc(100% + 4%);
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"><i class="fas fa-laptop-code"></i></div>
+                <div class="brand">
+                    <h1>CCODE</h1>
+                    <p class="tagline">Empowering Programmers, One Line at a Time</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#learn">Learn C</a></li>
+                        <li><a href="#explore">Explore C Programming</a></li>
+                        <li><a href="#about-c">About C</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="topic-header">
+            <div class="topic-icon-large">
+                <i class="fab fa-cuttlefish"></i>
+            </div>
+            <h1>Introduction to C Programming</h1>
+            <p class="topic-description">
+                C is a powerful general-purpose programming language that forms the foundation of modern computing. 
+                Created by Dennis Ritchie at Bell Labs in 1972, C provides low-level access to memory, efficient 
+                execution, and a simple set of keywords. It's the backbone of operating systems, embedded systems, 
+                and system software.
+            </p>
+            <div class="topic-usecase">
+                <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                <p>Operating Systems (Linux, Windows), Embedded Systems, System Software, Compilers, Database Management Systems, Game Engines, IoT Devices, and High-Performance Applications.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Basic Syntax</h2>
+            <p>Every C program follows a basic structure with preprocessing directives, the main function, and statements. Here's the fundamental syntax:</p>
+            
+            <div class="code-container">
+                <div class="code-toolbar">
+                    <div class="code-toolbar-left">
+                        <div class="window-dots">
+                            <div class="window-dot dot-red"></div>
+                            <div class="window-dot dot-yellow"></div>
+                            <div class="window-dot dot-green"></div>
+                        </div>
+                        <span class="code-filename">basic_syntax.c</span>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this, 'syntax-code')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="code-content">
+                    <pre><code id="syntax-code" class="language-c">#include &lt;stdio.h&gt;
+
+// Main function - Entry point of program
+int main() {
+    // Your code here
+    printf("Hello, World!\n");
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Code Explanation:</h3>
+                <ul>
+                    <li><strong>#include &lt;stdio.h&gt;</strong> - Preprocessor directive that includes standard input/output library</li>
+                    <li><strong>int main()</strong> - The main function where program execution begins, returns an integer</li>
+                    <li><strong>printf()</strong> - Function to print output to the console</li>
+                    <li><strong>return 0</strong> - Indicates successful program termination</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Complete Example Program</h2>
+            <p>Here's a complete C program demonstrating variables, input/output, and basic operations:</p>
+            
+            <div class="code-container">
+                <div class="code-toolbar">
+                    <div class="code-toolbar-left">
+                        <div class="window-dots">
+                            <div class="window-dot dot-red"></div>
+                            <div class="window-dot dot-yellow"></div>
+                            <div class="window-dot dot-green"></div>
+                        </div>
+                        <span class="code-filename">introduction_example.c</span>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this, 'example-code')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="code-content">
+                    <pre><code id="example-code" class="language-c">#include &lt;stdio.h&gt;
+
+/* Simple program to add two numbers */
+int main() {
+    // Variable declarations
+    int num1, num2, sum;
+    
+    // Display prompt to user
+    printf("Enter first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter second number: ");
+    scanf("%d", &num2);
+    
+    // Perform addition
+    sum = num1 + num2;
+    
+    // Display result
+    printf("Sum = %d\n", sum);
+    
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Program Breakdown:</h3>
+                <ul>
+                    <li><strong>Variable Declaration:</strong> int num1, num2, sum - declares three integer variables</li>
+                    <li><strong>scanf():</strong> Reads input from user, &num1 provides memory address to store input</li>
+                    <li><strong>%d:</strong> Format specifier for integer values</li>
+                    <li><strong>Arithmetic Operation:</strong> sum = num1 + num2 performs addition</li>
+                    <li><strong>Output:</strong> printf displays the result with formatted output</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="#" class="nav-btn disabled">
+                <i class="fas fa-arrow-left"></i> Previous
+            </a>
+            <a href="#" class="nav-btn">
+                Next <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#learn"><i class="fas fa-graduation-cap"></i> Learn C</a></li>
+                        <li><a href="#explore"><i class="fas fa-laptop-code"></i> Explore Programming</a></li>
+                        <li><a href="#about-c"><i class="fas fa-info-circle"></i> About C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <span class="heart"> ❤</span> for C Programming Lovers</p>
+                <p>&copy; <span id="year"></span> CCODE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify.min.js"></script>
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            html.setAttribute('data-theme', nextTheme);
+            themeToggle.innerHTML = nextTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', nextTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function copyCode(button, codeId) {
+            const codeElement = document.getElementById(codeId);
+            const textToCopy = codeElement.innerText;
+
+            const handleSuccess = () => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('copied');
+                }, 3000);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(handleSuccess)
+                    .catch(() => fallbackCopy(textToCopy, handleSuccess));
+            } else {
+                fallbackCopy(textToCopy, handleSuccess);
+            }
+        }
+
+        function fallbackCopy(text, callback) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                if (document.execCommand('copy')) callback();
+            } catch (err) {
+                console.error('Unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function formatCode() {
+            const codeBlocks = document.querySelectorAll('code[class*="language-"]');
+            codeBlocks.forEach(block => {
+                if (typeof js_beautify !== 'undefined') {
+                    const rawCode = block.textContent;
+                    const formattedCode = js_beautify(rawCode, {
+                        indent_size: 4,
+                        brace_style: 'collapse',
+                        space_before_conditional: true
+                    });
+                    block.textContent = formattedCode;
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            formatCode();
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+    </script>
+</body>
+</html>

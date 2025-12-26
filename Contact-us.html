@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - CCODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #10b981;
+            --secondary-color: #059669;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --secondary-color: #34d399;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --card-bg: #1f2937;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 26px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand h1 { font-size: 2rem; margin: 0; }
+        .tagline { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .contact-info-section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-method:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .contact-details a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .contact-details a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-form-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .contact-form-section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--bg-secondary);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .faq-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        .faq-section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-item h3 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .social-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .social-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .social-links-large {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link-large {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-link-large:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--shadow);
+            margin-top: 3rem;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 { margin-bottom: 1rem; color: var(--primary-color); font-size: 1.2rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+        }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--shadow); color: var(--text-secondary); }
+        .heart { color: #ef4444; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: flex; }
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--header-bg);
+                width: 100%;
+                height: 100vh;
+                transition: 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            nav a { font-size: 1.3rem; color: white; }
+            .brand h1 { font-size: 1.5rem; }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-links { flex-direction: column; text-align: left; }
+            .page-header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"><i class="fas fa-laptop-code"></i></div>
+                <div class="brand">
+                    <h1>CCODE</h1>
+                    <p class="tagline">Empowering Programmers, One Line at a Time</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#learn">Learn C</a></li>
+                        <li><a href="#explore">Explore C Programming</a></li>
+                        <li><a href="#about-c">About C</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+            <p>We'd love to hear from you! Get in touch with us for any questions or feedback</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info-section">
+                <h2>Get in Touch</h2>
+                <p>Have a question, suggestion, or just want to say hello? We're here to help! Reach out to us through any of the following methods, and we'll get back to you as soon as possible.</p>
+
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p><a href="mailto:contact@ccode.com">contact@ccode.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-life-ring"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Support</h3>
+                            <p><a href="mailto:support@ccode.com">support@ccode.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Report Bug</h3>
+                            <p><a href="mailto:bugs@ccode.com">bugs@ccode.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Response Time</h3>
+                            <p>Within 24-48 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-section">
+                <h2>Send us a Message</h2>
+                <form action="https://formsubmit.co/ccodeddev@gmail.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Contact Form Submission - CCODE">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="http://localhost/About-c/Thanks.html">
+                    <input type="hidden" name="_autoresponse" value="Thank you for contacting CCODE! We have received your message and will respond within 24-48 hours.">
+                    
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                            <option value="Technical Support">Technical Support</option>
+                            <option value="Feedback">Feedback</option>
+                            <option value="Bug Report">Bug Report</option>
+                            <option value="Tutorial Request">Tutorial Request</option>
+                            <option value="Partnership/Collaboration">Partnership/Collaboration</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3>How quickly will I get a response?</h3>
+                <p>We typically respond to all inquiries within 24-48 hours. During peak times, it may take slightly longer, but we'll do our best to get back to you as soon as possible.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I suggest new tutorial topics?</h3>
+                <p>Absolutely! We love hearing from our community. If you have suggestions for new tutorials or topics you'd like to see covered, please use the "Tutorial Request" subject in the contact form.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I report a bug or error?</h3>
+                <p>If you find a bug or error in our code examples or website, please email us at bugs@ccode.com or use the "Bug Report" option in the contact form. Include as much detail as possible to help us fix it quickly.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Are you available for collaborations?</h3>
+                <p>Yes! We're open to partnerships and collaborations that align with our mission of providing quality programming education. Please select "Partnership/Collaboration" in the contact form to discuss opportunities.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I contribute content to CCODE?</h3>
+                <p>We appreciate community contributions! If you're interested in contributing tutorials, exercises, or other content, please reach out to us with details about what you'd like to contribute.</p>
+            </div>
+        </div>
+
+        <div class="social-section">
+            <h2><i class="fas fa-share-alt"></i> Connect With Us</h2>
+            <p>Follow us on social media for updates, programming tips, and community discussions</p>
+            <div class="social-links-large">
+                <a href="https://facebook.com" target="_blank" class="social-link-large" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank" class="social-link-large" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://github.com" target="_blank" class="social-link-large" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="social-link-large" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="social-link-large" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-link-large" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#learn"><i class="fas fa-graduation-cap"></i> Learn C</a></li>
+                        <li><a href="#explore"><i class="fas fa-laptop-code"></i> Explore Programming</a></li>
+                        <li><a href="#about-c"><i class="fas fa-info-circle"></i> About C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <span class="heart">❤</span> for C Programming Lovers</p>
+                <p>&copy; <span id="year"></span> CCODE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            html.setAttribute('data-theme', nextTheme);
+            themeToggle.innerHTML = nextTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', nextTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

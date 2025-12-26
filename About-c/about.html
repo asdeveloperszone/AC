@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About C Programming Language - CCODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #10b981;
+            --secondary-color: #059669;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --secondary-color: #34d399;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --card-bg: #1f2937;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 26px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand h1 { font-size: 2rem; margin: 0; }
+        .tagline { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .c-logo-large {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            font-weight: bold;
+            font-family: serif;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .creator-section {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .creator-image {
+            flex-shrink: 0;
+        }
+
+        .creator-img {
+            width: 200px;
+            height: 250px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            object-fit: cover;
+            display: block;
+        }
+
+        .creator-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .creator-info h4 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            margin: 1.5rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .usage-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .usage-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .usage-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .documentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .doc-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .doc-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .doc-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--shadow);
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 { margin-bottom: 1rem; color: var(--primary-color); font-size: 1.2rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+        }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--shadow); color: var(--text-secondary); }
+        .heart { color: #ef4444; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: flex; }
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--header-bg);
+                width: 100%;
+                height: 100vh;
+                transition: 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            nav a { font-size: 1.3rem; color: white; }
+            .brand h1 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-links { flex-direction: column; text-align: left; }
+            .page-header h1 { font-size: 2rem; }
+            .creator-section { flex-direction: column; align-items: center; }
+            .creator-img { width: 180px; height: 230px; }
+            .creator-info { text-align: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .documentation-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"><i class="fas fa-laptop-code"></i></div>
+                <div class="brand">
+                    <h1>CCODE</h1>
+                    <p class="tagline">Empowering Programmers, One Line at a Time</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#learn">Learn C</a></li>
+                        <li><a href="#explore">Explore C Programming</a></li>
+                        <li><a href="#about-c">About C</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="c-logo-large">C</div>
+            <h1>About C Programming Language</h1>
+            <p>The Foundation of Modern Computing</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-history"></i> Complete History of C</h2>
+            
+            <div class="creator-section">
+                <div class="creator-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Dennis_Ritchie_2011.jpg/800px-Dennis_Ritchie_2011.jpg" alt="Dennis Ritchie" class="creator-img">
+                </div>
+                <div class="creator-info">
+                    <h4>Dennis MacAlistair Ritchie (1941-2011)</h4>
+                    <p>Dennis Ritchie, an American computer scientist, created the C programming language at Bell Laboratories in 1972. Working alongside Ken Thompson, Ritchie developed C to overcome the limitations of the B language while developing the Unix operating system. His revolutionary work earned him the Turing Award in 1983, often considered the "Nobel Prize of Computing."</p>
+                    <p>Ritchie's vision was to create a language that was both powerful enough for system programming and simple enough for widespread adoption. The result was C, which became one of the most influential programming languages in history.</p>
+                </div>
+            </div>
+
+            <p>The C programming language emerged from the need for a portable, efficient language to rewrite Unix. Prior to C, most operating systems were written in assembly language, making them difficult to port to different hardware platforms. Ritchie built upon the B language (created by Ken Thompson) and incorporated features from other languages to create C.</p>
+
+            <p>In 1978, Brian Kernighan and Dennis Ritchie published "The C Programming Language," commonly known as K&R C, which became the de facto standard. The American National Standards Institute (ANSI) standardized C in 1989 (ANSI C or C89), followed by the International Organization for Standardization (ISO) in 1990 (ISO C90). Subsequent standards include C99, C11, C17, and the latest C23, each adding new features while maintaining backward compatibility.</p>
+
+            <p>C's influence extends far beyond its direct use. It served as the foundation for numerous languages including C++, Objective-C, C#, Java, JavaScript, PHP, Python, Perl, and many others. The syntax and concepts introduced by C have become fundamental to programming education worldwide.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-star"></i> Importance of C Programming</h2>
+            
+            <p>C programming remains critically important in modern software development despite being over 50 years old. Its enduring relevance stems from several key factors that make it indispensable in certain domains.</p>
+
+            <div class="highlight-box">
+                <h3>Why C Still Matters Today</h3>
+                <ul class="usage-list">
+                    <li><strong>System Programming:</strong> C provides direct access to memory and hardware, making it ideal for operating systems, device drivers, and embedded systems.</li>
+                    <li><strong>Performance:</strong> C programs execute faster than those written in most higher-level languages because of minimal runtime overhead and close-to-hardware operations.</li>
+                    <li><strong>Portability:</strong> C code can be compiled and run on virtually any platform with minimal modifications, from microcontrollers to supercomputers.</li>
+                    <li><strong>Foundation for Learning:</strong> Understanding C provides fundamental knowledge about how computers work, memory management, and programming concepts.</li>
+                    <li><strong>Legacy Code:</strong> Millions of lines of critical infrastructure code are written in C, requiring ongoing maintenance and development.</li>
+                    <li><strong>Embedded Systems:</strong> C dominates embedded programming due to its efficiency and ability to interact directly with hardware.</li>
+                </ul>
+            </div>
+
+            <p>Major companies and projects rely on C for their core systems. Microsoft Windows kernel, Apple's macOS and iOS kernels, the Linux kernel, and countless embedded devices all depend on C. The language's influence in the Internet of Things (IoT) is growing as billions of connected devices require efficient, reliable code.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fab fa-android"></i> C Usage in Android Operating System</h2>
+            
+            <p>While Android applications are primarily written in Java or Kotlin, the Android operating system itself heavily relies on C and C++ at its core. The Android ecosystem demonstrates a sophisticated multilayer architecture where C plays a crucial role in performance-critical components.</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fab fa-android"></i></div>
+                    <div class="stat-number">~40-45%</div>
+                    <div class="stat-label">C/C++ in Android 16 OS Core</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-code"></i></div>
+                    <div class="stat-number">15M+</div>
+                    <div class="stat-label">Lines of C/C++ Code in AOSP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-microchip"></i></div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Hardware Abstraction Layer in C</div>
+                </div>
+            </div>
+
+            <h3>C Components in Android 16</h3>
+            <p>Android 16 (the latest version) continues the tradition of using C extensively in its lower-level components. The Linux kernel that Android is built upon contains approximately 20 million lines of C code. The Android Native Development Kit (NDK) allows developers to implement performance-critical portions of their apps using C and C++.</p>
+
+            <p>Key Android components written in C include the Hardware Abstraction Layer (HAL), which provides a standard interface for hardware vendors; native libraries like OpenGL ES for graphics rendering; media codecs for audio and video processing; SQLite database engine; and WebKit components for web rendering. The Android runtime also includes native C/C++ code for critical performance paths.</p>
+
+            <p>Game developers particularly benefit from C in Android, using the NDK to achieve console-like performance. Popular game engines like Unity and Unreal Engine leverage C++ (which builds upon C) for Android game development, allowing complex 3D games to run smoothly on mobile devices.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fab fa-linux"></i> C Usage in Linux Operating System</h2>
+            
+            <p>The Linux kernel, created by Linus Torvalds in 1991, is one of the most successful open-source projects ever created and serves as a testament to the power and efficiency of the C programming language. Linux represents the largest and most complex C program in active development, with contributions from thousands of developers worldwide.</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fab fa-linux"></i></div>
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Linux Kernel Written in C</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-file-code"></i></div>
+                    <div class="stat-number">28M+</div>
+                    <div class="stat-label">Lines of Code in Linux Kernel</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number">20,000+</div>
+                    <div class="stat-label">Contributors to Linux Kernel</div>
+                </div>
+            </div>
+
+            <h3>Why Linux Chose C</h3>
+            <p>Linus Torvalds chose C for Linux development for several compelling reasons. C provides the necessary low-level control to interact directly with hardware while maintaining readability and maintainability. The language's efficiency ensures the kernel operates with minimal overhead, crucial for an operating system that must manage system resources effectively.</p>
+
+            <p>The Linux kernel contains over 28 million lines of code, with approximately 98% written in C and the remaining 2% in assembly language for architecture-specific optimizations. This massive codebase includes device drivers, file systems, memory management, process scheduling, networking protocols, and security features—all implemented in C.</p>
+
+            <p>Major technology companies including Google, Amazon, Facebook, IBM, Intel, and Samsung contribute to Linux kernel development. The kernel powers everything from smartphones (Android) and embedded devices to servers, supercomputers, and cloud infrastructure. Every major cloud provider runs Linux on their servers, making C-based Linux code the backbone of the modern internet.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-book"></i> C Programming Documentation</h2>
+            
+            <p>Comprehensive documentation and resources are essential for mastering C programming. The C language has extensive documentation ranging from official standards to community-driven tutorials and references.</p>
+
+            <div class="documentation-grid">
+                <div class="doc-card">
+                    <h4><i class="fas fa-file-alt"></i> Official Standards</h4>
+                    <p>ISO C standards documents (C89, C99, C11, C17, C23) provide the authoritative specification of the C language, defining syntax, semantics, and standard library functions.</p>
+                </div>
+                <div class="doc-card">
+                    <h4><i class="fas fa-book-open"></i> K&R C Book</h4>
+                    <p>"The C Programming Language" by Kernighan and Ritchie remains the definitive book on C, covering fundamentals with clarity and precision.</p>
+                </div>
+                <div class="doc-card">
+                    <h4><i class="fas fa-graduation-cap"></i> Online Resources</h4>
+                    <p>Websites like cppreference.com, GeeksforGeeks, and TutorialsPoint offer comprehensive tutorials, examples, and reference materials for all skill levels.</p>
+                </div>
+                <div class="doc-card">
+                    <h4><i class="fas fa-tools"></i> Compiler Documentation</h4>
+                    <p>GCC and Clang documentation provides detailed information about compiler-specific features, optimization options, and platform-specific considerations.</p>
+                </div>
+                <div class="doc-card">
+                    <h4><i class="fas fa-code-branch"></i> Open Source Projects</h4>
+                    <p>Studying production C code from projects like Linux kernel, Git, Redis, and SQLite provides invaluable insights into professional C programming practices.</p>
+                </div>
+                <div class="doc-card">
+                    <h4><i class="fas fa-comments"></i> Community Forums</h4>
+                    <p>Stack Overflow, Reddit's r/C_Programming, and specialized forums offer community support, code reviews, and answers to specific C programming questions.</p>
+                </div>
+            </div>
+
+            <h3>Learning Path</h3>
+            <p>For beginners, start with basic syntax, data types, operators, and control structures. Progress to functions, arrays, pointers, and strings. Advanced topics include dynamic memory allocation, file I/O, preprocessor directives, and data structures. System programming concepts like process management and inter-process communication represent expert-level material.</p>
+
+            <p>Practice is essential for mastering C. Work on small projects initially, then gradually tackle more complex applications. Contributing to open-source C projects provides real-world experience and exposure to professional coding standards. Remember that C requires understanding of low-level concepts like memory management and pointer arithmetic, which distinguishes it from higher-level languages.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#learn"><i class="fas fa-graduation-cap"></i> Learn C</a></li>
+                        <li><a href="#explore"><i class="fas fa-laptop-code"></i> Explore Programming</a></li>
+                        <li><a href="#about-c"><i class="fas fa-info-circle"></i> About C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <span class="heart">❤</span> for C Programming Lovers</p>
+                <p>&copy; <span id="year"></span> CCODE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            html.setAttribute('data-theme', nextTheme);
+            themeToggle.innerHTML = nextTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', nextTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

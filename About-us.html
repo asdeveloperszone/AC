@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - CCODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #10b981;
+            --secondary-color: #059669;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #10b981;
+            --secondary-color: #34d399;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --card-bg: #1f2937;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --header-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 26px;
+            transition: transform 0.3s ease;
+        }
+
+        .brand h1 { font-size: 2rem; margin: 0; }
+        .tagline { font-size: 0.9rem; opacity: 0.9; font-style: italic; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .story-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .story-section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .story-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .founder-section {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        .founder-image {
+            flex-shrink: 0;
+        }
+
+        .founder-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .founder-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .founder-info h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-info .title {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .founder-info p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .founder-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .mission-card, .vision-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .mission-card h3, .vision-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p, .vision-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .values-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .values-section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .value-item h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-color);
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--shadow);
+            margin-top: 3rem;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-column h3 { margin-bottom: 1rem; color: var(--primary-color); font-size: 1.2rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover { color: var(--primary-color); transform: translateX(5px); }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+        }
+
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--shadow); color: var(--text-secondary); }
+        .heart { color: #ef4444; }
+
+        @media (max-width: 992px) {
+            .hamburger { display: flex; }
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--header-bg);
+                width: 100%;
+                height: 100vh;
+                transition: 0.4s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            nav.active { right: 0; }
+            nav ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            nav a { font-size: 1.3rem; color: white; }
+            .brand h1 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-links { flex-direction: column; text-align: left; }
+            .page-header h1 { font-size: 2rem; }
+            .founder-section { flex-direction: column; text-align: center; }
+            .founder-avatar { width: 150px; height: 150px; font-size: 4rem; }
+            .founder-stats { justify-content: center; }
+            .story-section { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo"><i class="fas fa-laptop-code"></i></div>
+                <div class="brand">
+                    <h1>CCODE</h1>
+                    <p class="tagline">Empowering Programmers, One Line at a Time</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#learn">Learn C</a></li>
+                        <li><a href="#explore">Explore C Programming</a></li>
+                        <li><a href="#about-c">About C</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1><i class="fas fa-users"></i> About Us</h1>
+            <p>Passionate about programming education and empowering the next generation of developers</p>
+        </div>
+
+        <div class="founder-section">
+            <div class="founder-image">
+                <div class="founder-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+            </div>
+            <div class="founder-info">
+                <h2>AS-DEV</h2>
+                <p class="title">Founder & Developer | Age 18</p>
+                <p>Hello! I'm AS-DEV, an 18-year-old passionate developer and the creator of CCODE. My journey into programming began at a young age, and I've been fascinated by the power of code to create, innovate, and solve real-world problems.</p>
+                <p>As a young developer myself, I understand the challenges that beginners face when learning programming. That's why I created CCODE—to provide a comprehensive, easy-to-understand platform for anyone who wants to master C programming, regardless of their background or experience level.</p>
+                <p>I believe that programming education should be accessible to everyone, and I'm committed to making CCODE the best resource for learning C programming fundamentals.</p>
+                
+                <div class="founder-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Years Old</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2025</div>
+                        <div class="stat-label">CCODE Founded</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Tutorials Created</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-section">
+            <h2><i class="fas fa-book"></i> Our Story</h2>
+            <p>CCODE was born from a simple realization: learning programming shouldn't be complicated or intimidating. As a self-taught developer, I experienced firsthand the frustration of navigating through scattered tutorials, inconsistent documentation, and resources that assumed prior knowledge.</p>
+            <p>I wanted to create something different—a platform where beginners could start from absolute zero and progressively build their skills through clear explanations, practical examples, and hands-on exercises. CCODE represents my vision of what programming education should be: accessible, comprehensive, and focused on building real understanding rather than just memorizing syntax.</p>
+            <p>Starting this project at 18 years old has been both challenging and rewarding. It's taught me not just about programming, but about education, design, and the importance of creating resources that truly help people learn. Every tutorial, every code example, and every explanation on CCODE is crafted with the learner's journey in mind.</p>
+            <p>Today, CCODE serves as a comprehensive resource for C programming, covering everything from basic syntax to advanced concepts. But this is just the beginning—I'm constantly working to expand the platform, add new features, and improve the learning experience for everyone who visits.</p>
+        </div>
+
+        <div class="mission-vision">
+            <div class="mission-card">
+                <div class="card-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Our Mission</h3>
+                <p>To provide free, high-quality programming education that empowers individuals to build their coding skills and pursue their passion for technology. We strive to make C programming accessible to everyone, regardless of their background or resources.</p>
+            </div>
+            <div class="vision-card">
+                <div class="card-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Our Vision</h3>
+                <p>To become the world's most trusted and comprehensive platform for learning C programming, inspiring millions of developers to master the fundamentals and build amazing things with code.</p>
+            </div>
+        </div>
+
+        <div class="values-section">
+            <h2><i class="fas fa-heart"></i> Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>Education First</h4>
+                    <p>We prioritize clear, accurate, and comprehensive educational content above everything else.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-unlock"></i></div>
+                    <h4>Accessibility</h4>
+                    <p>Programming education should be free and available to anyone with an internet connection.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Clarity</h4>
+                    <p>We explain complex concepts in simple, understandable terms with practical examples.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Innovation</h4>
+                    <p>We constantly improve and evolve our platform to provide the best learning experience.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-users"></i></div>
+                    <h4>Community</h4>
+                    <p>We foster a supportive learning environment where everyone can grow together.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="fas fa-trophy"></i></div>
+                    <h4>Excellence</h4>
+                    <p>We maintain high standards in everything we create, from tutorials to code examples.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2><i class="fas fa-code"></i> Start Your Programming Journey Today</h2>
+            <p>Join thousands of learners who are mastering C programming with CCODE</p>
+            <a href="learn-c.html" class="cta-button">Start Learning Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#learn"><i class="fas fa-graduation-cap"></i> Learn C</a></li>
+                        <li><a href="#explore"><i class="fas fa-laptop-code"></i> Explore Programming</a></li>
+                        <li><a href="#about-c"><i class="fas fa-info-circle"></i> About C</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <span class="heart">❤</span> for C Programming Lovers</p>
+                <p>&copy; <span id="year"></span> CCODE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            html.setAttribute('data-theme', nextTheme);
+            themeToggle.innerHTML = nextTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', nextTheme);
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
